@@ -1,38 +1,28 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,100,500,900');
+
+body {
+    background: #e4e5e7;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+div.css-1083xa6-MuiTypography-root {
+    font-family: 'Creepster', cursive;
+    font-size: 3.5rem;
+    -webkit-text-stroke: 2px #c0df40;
+    color: #40B5CB;
+    margin-right: 50px;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button.css-1q39md6-MuiButtonBase-root-MuiButton-root {
+    font-family: 'Creepster', cursive;
+    font-size: 2.5rem;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+button.css-1q39md6-MuiButtonBase-root-MuiButton-root:hover {
+    background-color: transparent;
+    -webkit-text-stroke: 3px #c0df40;
+    color: #40B5CB;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
