@@ -36,6 +36,18 @@ const ResponsiveAppBar = () => {
             >
               Characters
             </Button>
+            <Button
+              onClick={() => navigate("/counter")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Counter
+            </Button>
+            <Button
+              onClick={() => navigate("/fcounter")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              FuncCounter
+            </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             {token ? (

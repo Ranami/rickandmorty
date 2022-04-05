@@ -6,6 +6,8 @@ import { SignInPage } from "./pages/SignInPage";
 import { Auth } from "./context/Auth";
 import { useState } from "react";
 import { HeroPage } from "./pages/HeroPage";
+import { Counter } from "./pages/Counter";
+import { FCounter } from "./pages/FCounter";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("idToken"));
@@ -19,6 +21,8 @@ function App() {
           <Route path="/heroes" element={<HeroesPage />} />
           <Route path="/heroes/:id" element={<HeroPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/counter" element={<Counter />} />
+          <Route path="/fcounter" element={<FCounter />} />
         </Routes>
       </div>
     </Auth.Provider>
