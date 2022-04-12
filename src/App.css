@@ -24,5 +24,15 @@ button.css-1q39md6-MuiButtonBase-root-MuiButton-root:hover {
     background-color: transparent;
     -webkit-text-stroke: 3px #c0df40;
     color: #40B5CB;
+}
 
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0;
 }
