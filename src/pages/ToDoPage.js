@@ -21,7 +21,10 @@ export function ToDoPage() {
 
   function handleCreate(text) {
     setTodos([...todos, text]);
-    setDates([...dates, new Date()]);
+    setDates([
+      ...dates,
+      new Date().toLocaleString().slice(0, -3).replace(/,/, ""),
+    ]);
   }
 
   function handleRemove(index) {
