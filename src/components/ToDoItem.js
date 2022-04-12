@@ -38,7 +38,7 @@ export function ToDoItem({ todo, onRemove, date }) {
             left: 0,
           }}
         >
-          {date.toLocaleString().slice(0, -3)}
+          {date}
         </div>
       </li>
     </div>
