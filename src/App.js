@@ -8,6 +8,7 @@ import { useState } from "react";
 import { HeroPage } from "./pages/HeroPage";
 import { Counter } from "./pages/Counter";
 import { FCounter } from "./pages/FCounter";
+import { ToDoPage } from "./pages/ToDoPage";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("idToken"));
@@ -23,6 +24,7 @@ function App() {
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/counter" element={<Counter />} />
           <Route path="/fcounter" element={<FCounter />} />
+          <Route path="/todo" element={<ToDoPage />} />
         </Routes>
       </div>
     </Auth.Provider>
