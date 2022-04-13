@@ -4,7 +4,7 @@ import { useMemo } from "react";
 export function ToDoList({ todos, onRemove, onTodoChange }) {
   const sortedTodos = useMemo(() => {
     const s = [...todos];
-    return s.sort((a, b) => a.done - b.done);
+    return todos.sort((a, b) => a.done - b.done);
   }, [todos]);
   return (
     <ul
