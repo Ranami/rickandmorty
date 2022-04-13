@@ -1,6 +1,11 @@
 import { ToDoItem } from "./ToDoItem";
+import { useMemo } from "react";
 
-export function ToDoList({ todos, onRemove, dates }) {
+export function ToDoList({ todos, onRemove, onTodoChange }) {
+  const sortedTodos = useMemo(() => {
+    const s = [...todos];
+    return todos.sort((a, b) => a.done - b.done);
+  }, [todos]);
   return (
     <ul
       style={{
@@ -10,12 +15,12 @@ export function ToDoList({ todos, onRemove, dates }) {
         alignItems: "center",
       }}
     >
-      {todos?.map((todo, index) => (
+      {sortedTodos?.map((todo) => (
         <ToDoItem
           todo={todo}
-          onRemove={() => onRemove(index)}
-          key={index}
-          date={dates[index]}
+          onRemove={onRemove(todo.created)}
+          onTodoChange={onTodoChange(todo.created)}
+          key={todo.created} // index лучше не использовать
         />
       ))}
     </ul>
