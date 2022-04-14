@@ -1,27 +1,7 @@
 import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-<<<<<<< Updated upstream
 
 export function ToDoItem({ todo, onRemove, date }) {
-=======
-import DoneIcon from "@mui/icons-material/Done";
-import { useMemo, useCallback } from "react";
-import { useDispatch } from "react-redux";
-
-export function ToDoItem({ todo, onTodoChange }) {
-  const dispatch = useDispatch();
-  const created = useMemo(() => {
-    return new Date(todo.created).toLocaleString();
-  }, [todo.created]);
-
-  const handleRemove = useCallback(() => {
-    dispatch({
-      type: "todos/remove",
-      payload: todo.created,
-    });
-  }, [todo.created, dispatch]);
-
->>>>>>> Stashed changes
   return (
     <div
       style={{
@@ -40,7 +20,7 @@ export function ToDoItem({ todo, onTodoChange }) {
 
         <Button
           size="small"
-          onClick={handleRemove}
+          onClick={onRemove}
           sx={{
             position: "absolute",
             right: "-15px",
@@ -49,20 +29,6 @@ export function ToDoItem({ todo, onTodoChange }) {
         >
           <CloseIcon sx={{ color: "red", fontSize: 35 }} />
         </Button>
-<<<<<<< Updated upstream
-=======
-        <Checkbox
-          onChange={() => onTodoChange(todo.created, !todo.done)}
-          checked={todo.done}
-          sx={{
-            position: "absolute",
-            right: "-4px",
-            top: "40px",
-          }}
-        >
-          <DoneIcon sx={{ color: "green", fontSize: 35 }} />
-        </Checkbox>
->>>>>>> Stashed changes
         <div
           style={{
             fontSize: "16px",
