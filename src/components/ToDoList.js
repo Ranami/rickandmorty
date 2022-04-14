@@ -1,8 +1,6 @@
 import { ToDoItem } from "./ToDoItem";
+import { useMemo } from "react";
 
-<<<<<<< Updated upstream
-export function ToDoList({ todos, onRemove, dates }) {
-=======
 export function ToDoList({ todos, onTodoChange }) {
   const sortedTodos = useMemo(() => {
     const s = [...todos];
@@ -11,22 +9,10 @@ export function ToDoList({ todos, onTodoChange }) {
     return { completedTodos, currentTodos };
   }, [todos]);
 
->>>>>>> Stashed changes
   return (
     <div
       style={{ display: "flex", gap: "25px", justifyContent: "space-around" }}
     >
-<<<<<<< Updated upstream
-      {todos?.map((todo, index) => (
-        <ToDoItem
-          todo={todo}
-          onRemove={() => onRemove(index)}
-          key={index}
-          date={dates[index]}
-        />
-      ))}
-    </ul>
-=======
       <ul
         style={{
           display: "flex",
@@ -64,6 +50,5 @@ export function ToDoList({ todos, onTodoChange }) {
         ))}
       </ul>
     </div>
->>>>>>> Stashed changes
   );
 }

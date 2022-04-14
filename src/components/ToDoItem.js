@@ -1,7 +1,12 @@
-import { Button } from "@mui/material";
+import { Button, Checkbox } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import DoneIcon from "@mui/icons-material/Done";
+import { useMemo } from "react";
 
-export function ToDoItem({ todo, onRemove, date }) {
+export function ToDoItem({ todo, onRemove, onTodoChange }) {
+  const created = useMemo(() => {
+    return new Date(todo.created).toLocaleString();
+  }, [todo.created]);
   return (
     <div
       style={{
@@ -16,7 +21,14 @@ export function ToDoItem({ todo, onRemove, date }) {
       }}
     >
       <li style={{ listStyle: "none", fontSize: "20px", position: "relative" }}>
-        <div style={{ fontSize: "24px" }}>{todo}</div>
+        <div
+          style={{
+            fontSize: "24px",
+            textDecoration: todo.done ? "line-through red" : "none",
+          }}
+        >
+          {todo.text}
+        </div>
 
         <Button
           size="small"
@@ -29,6 +41,17 @@ export function ToDoItem({ todo, onRemove, date }) {
         >
           <CloseIcon sx={{ color: "red", fontSize: 35 }} />
         </Button>
+        <Checkbox
+          onChange={() => onTodoChange(!todo.done)}
+          checked={todo.done}
+          sx={{
+            position: "absolute",
+            right: "-2px",
+            top: "40px",
+          }}
+        >
+          <DoneIcon sx={{ color: "green", fontSize: 35 }} />
+        </Checkbox>
         <div
           style={{
             fontSize: "16px",
@@ -38,7 +61,7 @@ export function ToDoItem({ todo, onRemove, date }) {
             left: 0,
           }}
         >
-          {date}
+          {created}
         </div>
       </li>
     </div>
