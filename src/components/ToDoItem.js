@@ -1,12 +1,20 @@
 import { Button, Checkbox } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DoneIcon from "@mui/icons-material/Done";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
+import { useDispatch } from "react-redux";
 
-export function ToDoItem({ todo, onRemove, onTodoChange }) {
+export function ToDoItem({ todo, onTodoChange }) {
+  const dispatch = useDispatch();
+
   const created = useMemo(() => {
     return new Date(todo.created).toLocaleString();
   }, [todo.created]);
+
+  const handleRemove = useCallback(() => {
+    dispatch({ type: "todos/remove", payload: todo.created });
+  }, [todo.created, dispatch]);
+
   return (
     <div
       style={{
@@ -32,7 +40,7 @@ export function ToDoItem({ todo, onRemove, onTodoChange }) {
 
         <Button
           size="small"
-          onClick={onRemove}
+          onClick={handleRemove}
           sx={{
             position: "absolute",
             right: "-15px",
@@ -42,11 +50,11 @@ export function ToDoItem({ todo, onRemove, onTodoChange }) {
           <CloseIcon sx={{ color: "red", fontSize: 35 }} />
         </Button>
         <Checkbox
-          onChange={() => onTodoChange(!todo.done)}
+          onChange={() => onTodoChange(todo.created, !todo.done)}
           checked={todo.done}
           sx={{
             position: "absolute",
-            right: "-2px",
+            right: "-3px",
             top: "40px",
           }}
         >
