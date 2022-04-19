@@ -9,6 +9,8 @@ import { HeroPage } from "./pages/HeroPage";
 import { Counter } from "./pages/Counter";
 import { FCounter } from "./pages/FCounter";
 import { ToDoPage } from "./pages/ToDoPage";
+import { MoviesPage } from "./pages/MoviesPage";
+import { MoviePage } from "./pages/MoviePage";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("idToken"));
@@ -25,6 +27,8 @@ function App() {
           <Route path="/counter" element={<Counter />} />
           <Route path="/fcounter" element={<FCounter />} />
           <Route path="/todo" element={<ToDoPage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:id" element={<MoviePage />} />
         </Routes>
       </div>
     </Auth.Provider>

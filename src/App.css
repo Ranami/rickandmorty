@@ -36,3 +36,46 @@ ul {
     margin-inline-end: 0px;
     padding-inline-start: 0;
 }
+
+.nav_elements {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.movie_cards {
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 16px;
+    row-gap: 27px;
+    padding-bottom: 40px;
+    cursor: pointer;
+}
+
+.movie_card {
+    height: 440px;
+    width: 292px;
+}
+
+.movie_card:hover {
+    transition: .3s;
+    transform: scale(1.1);
+}
+
+.full_description {
+    z-index: 1;
+    width: 632px;
+}
+
+.search_block {
+    display: flex;
+    gap: 20px;
+}
+
+.MuiButton-textPrimary {
+    color: #fff !important;
+}
+
+.search_button {
+    height: 55px;
+}

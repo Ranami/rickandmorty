@@ -54,6 +54,12 @@ const ResponsiveAppBar = () => {
             >
               ToDo
             </Button>
+            <Button
+              onClick={() => navigate("/movies")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Movies
+            </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             {token ? (

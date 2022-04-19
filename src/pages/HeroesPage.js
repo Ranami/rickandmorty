@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { HeroCard } from "../components/HeroCard";
 import Grid from "@mui/material/Grid";
 import {
@@ -11,39 +11,44 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  SET_HEROES_STATUS_BY,
+  SET_HEROES_QUERY,
+  fetchHeroes,
+} from "../store/actions/fetchHeroes";
 
 export function HeroesPage() {
-  const [pageInfo, setPageInfo] = useState({
-    page: 1,
-    total_pages: 0,
-  });
-  const [heroes, setHeroes] = useState([]);
-  const [query, setQuery] = useState("");
-  const [statusBy, setStatusBy] = useState("");
+  const dispatch = useDispatch();
+  const heroes = useSelector((state) => state.heroes.heroes);
+  const query = useSelector((state) => state.heroes.query);
+  const statusBy = useSelector((state) => state.heroes.statusBy);
+  const pageInfo = useSelector((state) => state.heroes.pageInfo);
 
   useEffect(() => {
-    searchHeroes();
-  }, []);
+    dispatch(fetchHeroes());
+  }, [dispatch]);
 
-  function searchHeroes({ page = 1, status = statusBy } = {}) {
-    fetch(
-      `https://rickandmortyapi.com/api/character/?page=${page}&status=${status}&name=${query}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setHeroes(data?.results);
-        setPageInfo({
-          page,
-          total_pages: data?.info.pages,
-        });
-      });
-  }
+  const setStatusBy = useCallback(
+    (payload) => {
+      dispatch({ type: SET_HEROES_STATUS_BY, payload });
+    },
+    [dispatch]
+  );
+  const setQuery = useCallback(
+    (payload) => {
+      dispatch({ type: SET_HEROES_QUERY, payload });
+    },
+    [dispatch]
+  );
 
-  function handleKeyDown(event) {
-    if (event.key === "Enter") {
-      searchHeroes();
-    }
-  }
+  const searchHeroes = useCallback(
+    ({ page = 1, status = statusBy } = {}) => {
+      dispatch(fetchHeroes({ page, status, query }));
+    },
+    [dispatch, query, statusBy]
+  );
+
   return (
     <Container maxWidth="x1" style={{ margin: "10px 0" }}>
       <div
@@ -59,7 +64,7 @@ export function HeroesPage() {
               id="demo-simple-select-label"
               sx={{ position: "absolute", top: "-6px" }}
             >
-              Filter by Status
+              Sort by Status
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -82,17 +87,24 @@ export function HeroesPage() {
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
           }}
         >
-          <TextField
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            size="small"
-            label="Search"
-            onKeyDown={handleKeyDown}
-          />
-          <Button onClick={() => searchHeroes()}>Search</Button>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              searchHeroes();
+            }}
+          >
+            <TextField
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              size="small"
+              label="Search"
+            />
+            <Button type="submit" variant="contained">
+              Search
+            </Button>
+          </form>
         </div>
       </div>
       <Grid container spacing={4}>

@@ -1,36 +1,15 @@
-import { createStore } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { todos } from "./reducers/todos";
+import { movies } from "./reducers/movies";
+import { composeWithDevTools } from "@redux-devtools/extension";
+import { heroes } from "./reducers/heroes";
+import thunk from "redux-thunk";
 
-const initState = {
-  todos: JSON.parse(localStorage.getItem("todos")) || [],
-};
-
-const reducer = function (state = initState, action) {
-  const newState = { ...state };
-  switch (action.type) {
-    case "todos/add":
-      newState.todos = [...state.todos, action.payload];
-      break;
-    case "todos/remove":
-      newState.todos = state.todos.filter(
-        (todo) => todo.created !== action.payload
-      );
-      break;
-    case "todos/doneChange":
-      newState.todos = state.todos.map((todo) => {
-        if (todo.created === action.payload) {
-          return {
-            ...todo,
-            done: action.value,
-          };
-        }
-        return todo;
-      });
-      break;
-    default:
-      return state;
-  }
-  localStorage.setItem("todos", JSON.stringify(newState.todos));
-  return newState;
-};
-
-export const store = createStore(reducer);
+export const store = createStore(
+  combineReducers({
+    movies,
+    todos,
+    heroes,
+  }),
+  composeWithDevTools(applyMiddleware(thunk))
+);
