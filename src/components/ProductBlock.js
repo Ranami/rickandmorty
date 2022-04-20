@@ -3,6 +3,7 @@ import { styled, Button } from "@mui/material";
 
 const Box = styled("div")`
   width: 260px;
+  height: 450px;
   padding: 16px 16px 12px 16px;
   border-radius: 8px;
   box-sizing: border-box;
@@ -35,7 +36,7 @@ export function ProductBlock({ product, onAddToBasket }) {
     <Box>
       <Image src={product.image} alt={product.title} />
       <Title>{product.title}</Title>
-      <Price>{product.price}</Price>
+      <Price>{product.price}$</Price>
       <Button variant="outlined" onClick={onAddToBasket}>
         Add to Basket
       </Button>

@@ -32,8 +32,12 @@ const Wrapper = styled("div")`
     }}
 `;
 
-export function BasketItem({ product }) {
-  return <div>{product.title}</div>;
+export function BasketItem({ product, count }) {
+  return (
+    <div>
+      {product.product.title} {count}
+    </div>
+  );
 }
 
 export function Basket() {
@@ -42,22 +46,32 @@ export function Basket() {
   const dispatch = useDispatch();
 
   const handleRemoveFromBasket = useCallback(
-    (product) => {
-      dispatch(removeFromBasket(product));
+    (id) => {
+      dispatch(removeFromBasket(id));
     },
     [dispatch]
   );
-
   return (
     <Wrapper onClick={() => setExpanded(!expanded)} expanded={expanded}>
-      <ShoppingBasketIcon sx={{ fontSize: 40, color: "white" }} />
+      {!expanded ? (
+        <ShoppingBasketIcon sx={{ fontSize: 40, color: "white" }} />
+      ) : (
+        ""
+      )}
       {expanded &&
         basket.map((product) => (
           <div>
-            <BasketItem product={product} key={product.id} />
+            <BasketItem
+              product={product}
+              key={product.product.id}
+              count={product.count}
+            />
             <Button
               variant="contained"
-              onClick={() => handleRemoveFromBasket(product)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleRemoveFromBasket(product.product.id);
+              }}
             >
               Remove
             </Button>

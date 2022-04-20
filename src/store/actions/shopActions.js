@@ -17,9 +17,9 @@ export const addToBasket = (product) => (dispatch) => {
   });
 };
 
-export const removeFromBasket = (product) => (dispatch) => {
+export const removeFromBasket = (id) => (dispatch) => {
   dispatch({
     type: REMOVE_FROM_BASKET,
-    payload: product.id,
+    payload: id,
   });
 };
