@@ -79,3 +79,15 @@ ul {
 .search_button {
     height: 55px;
 }
+
+.basket_item>h3, p {
+    margin: 0;
+    margin-bottom: 15px;
+    padding: 0;
+    font-weight: bold;
+}
+
+.basket_button {
+    width: 150px;
+
+}

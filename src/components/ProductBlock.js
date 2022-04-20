@@ -23,12 +23,15 @@ const Title = styled("h3")`
   font-size: 16px;
   font-weight: normal;
   color: #19191d;
-  margin-top: 12px;
+  margin-top: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 const Price = styled("h3")`
   font-size: 24px;
   color: #19191d;
-  margin-top: 12px;
+  margin-top: 10px;
 `;
 
 export function ProductBlock({ product, onAddToBasket }) {
