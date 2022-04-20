@@ -2,7 +2,13 @@ import React, { useState, useCallback } from "react";
 import { styled, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { removeFromBasket } from "../store/actions/shopActions";
+import {
+  removeFromBasket,
+  incrementBasket,
+  decrementBasket,
+} from "../store/actions/shopActions";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const Wrapper = styled("div")`
   position: fixed;
@@ -51,6 +57,20 @@ export function Basket() {
     },
     [dispatch]
   );
+
+  const handleIncrementBasket = useCallback(
+    (id) => {
+      dispatch(incrementBasket(id));
+    },
+    [dispatch]
+  );
+  const handleDecrementBasket = useCallback(
+    (id) => {
+      dispatch(decrementBasket(id));
+    },
+    [dispatch]
+  );
+
   return (
     <Wrapper onClick={() => setExpanded(!expanded)} expanded={expanded}>
       {!expanded ? (
@@ -60,12 +80,8 @@ export function Basket() {
       )}
       {expanded &&
         basket.map((product) => (
-          <div>
-            <BasketItem
-              product={product}
-              key={product.product.id}
-              count={product.count}
-            />
+          <div key={product.product.id}>
+            <BasketItem product={product} count={product.count} />
             <Button
               variant="contained"
               onClick={(e) => {
@@ -74,6 +90,24 @@ export function Basket() {
               }}
             >
               Remove
+            </Button>
+            <Button
+              variant="contained"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleIncrementBasket(product.product.id);
+              }}
+            >
+              <AddIcon />
+            </Button>
+            <Button
+              variant="contained"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDecrementBasket(product.product.id);
+              }}
+            >
+              <RemoveIcon />
             </Button>
           </div>
         ))}

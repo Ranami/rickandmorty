@@ -2,6 +2,8 @@ import {
   SET_PRODUCTS,
   ADD_TO_BASKET,
   REMOVE_FROM_BASKET,
+  INCREMENT_BASKET,
+  DECREMENT_BASKET,
 } from "../actions/shopActions";
 
 const initState = {
@@ -30,8 +32,26 @@ export function shop(state = initState, action) {
       }
 
       break;
+    case INCREMENT_BASKET:
+      const selectedIncrementedItem = newState.basket.find(
+        (product) => product.product.id === action.payload
+      );
+      selectedIncrementedItem.count++;
+      newState.basket = [...newState.basket];
+      break;
+    case DECREMENT_BASKET:
+      const selectedDecrementedItem = newState.basket.find(
+        (product) => product.product.id === action.payload
+      );
+      selectedDecrementedItem.count--;
+      if (selectedDecrementedItem.count === 0) {
+        newState.basket = state.basket.filter(
+          (item) => item.product.id !== selectedDecrementedItem.product.id
+        );
+      }
+      newState.basket = [...newState.basket];
+      break;
     case REMOVE_FROM_BASKET:
-      console.log(action.payload);
       newState.basket = state.basket.filter(
         (item) => item.product.id !== action.payload
       );
