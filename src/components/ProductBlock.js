@@ -8,6 +8,8 @@ const Box = styled("div")`
   border-radius: 8px;
   box-sizing: border-box;
   transition: 0.2s;
+  margin: 0 auto;
+  text-align: center;
   &:hover {
     box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1);
   }

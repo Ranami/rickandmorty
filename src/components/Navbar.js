@@ -29,7 +29,7 @@ const ResponsiveAppBar = () => {
           >
             Rick and Morty
           </Typography>
-          <Box sx={{ flexGrow: 1, display: "flex" }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               onClick={() => navigate("/heroes")}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -67,7 +67,7 @@ const ResponsiveAppBar = () => {
               Shop
             </Button>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, marginRight: 10 }}>
             {token ? (
               <Tooltip title="Open settings">
                 <IconButton sx={{ p: 0 }}>
@@ -77,7 +77,7 @@ const ResponsiveAppBar = () => {
             ) : (
               <Button
                 onClick={() => navigate("/signin")}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ color: "white", display: "block" }}
               >
                 Sign In
               </Button>

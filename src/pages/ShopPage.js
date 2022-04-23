@@ -21,11 +21,12 @@ export function ShopPage() {
   );
 
   return (
-    <Container>
-      <Grid container spacing={2}>
+    <Container sx={{ marginTop: 5 }}>
+      <Basket />
+      <Grid container spacing={{ xs: 2, sm: 6, md: 5 }}>
         {products.map((product) => {
           return (
-            <Grid item xs={3} key={product.id}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
               <ProductBlock
                 product={product}
                 onAddToBasket={() => handleAddToBasket(product)}
@@ -34,7 +35,6 @@ export function ShopPage() {
           );
         })}
       </Grid>
-      <Basket />
     </Container>
   );
 }

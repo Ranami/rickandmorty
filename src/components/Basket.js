@@ -1,63 +1,79 @@
 import React, { useState, useCallback } from "react";
-import { styled, Button } from "@mui/material";
+import { styled, Button, Drawer, IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import LocalGroceryStoreSharpIcon from "@mui/icons-material/LocalGroceryStoreSharp";
-import {
-  removeFromBasket,
-  incrementBasket,
-  decrementBasket,
-} from "../store/actions/shopActions";
+import { incrementBasket, decrementBasket } from "../store/actions/shopActions";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { BasketItem } from "./BasketItem";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Wrapper = styled("div")`
-  position: fixed;
-  z-index: 100;
-  right: 20px;
-  top: 100px;
-  width: 100px;
-  height: 100px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background-color: black;
-  border-radius: 50px;
-  transition: 0.5s;
-  ${({ expanded }) =>
-    expanded && {
-      width: "400px",
-      height: "600px",
-      background: "white",
-      border: "1px solid black",
-      borderRadius: "10px",
-      flexDirection: "column",
-      alignItems: "flex-start",
-      justifyContent: "flex-start",
-      padding: "16px",
-      overflowY: "scroll",
-    }}
+  justify-content: flex-end;
+  margin-bottom: 15px;
 `;
 
 const BasketButtons = styled("span")`
   color: #000000;
   display: flex;
-  justify-content: flex-start;
   column-gap: 15px;
+  justify-content: space-between;
+  width: 105px;
+  margin-left: auto;
+  align-items: center;
+  background-color: rgb(243, 243, 247);
+  border-radius: 50px;
+`;
+
+const ItemsWrapper = styled("div")`
+  width: 500px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  margin: ${(props) => (props.length ? "15px auto" : "auto")};
+`;
+
+const Divider = styled("div")`
+  &:after {
+    content: "";
+    width: 2px;
+    height: 10px;
+    background-color: #1976d2;
+    margin: 0 3px;
+  }
+`;
+
+const TotalHeader = styled("h2")`
+  margin: 0;
+`;
+
+const CloseButton = styled("div")`
+  margin: 5px 10px 0 auto;
+  height: 1px;
+  transition: 0.5s;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+`;
+
+const ProductCount = styled("p")`
+  margin: 0;
+  margin-bottom: 1px;
 `;
 
 export function Basket() {
-  const [expanded, setExpanded] = useState(false);
   const basket = useSelector((state) => state.shop.basket);
   const dispatch = useDispatch();
 
-  const handleRemoveFromBasket = useCallback(
-    (id) => {
-      dispatch(removeFromBasket(id));
-    },
-    [dispatch]
-  );
+  // const handleRemoveFromBasket = useCallback(
+  //   (id) => {
+  //     dispatch(removeFromBasket(id));
+  //   },
+  //   [dispatch]
+  // );
 
   const handleIncrementBasket = useCallback(
     (id) => {
@@ -72,62 +88,102 @@ export function Basket() {
     [dispatch]
   );
 
-  return (
-    <Wrapper onClick={() => setExpanded(!expanded)} expanded={expanded}>
-      {!expanded ? (
-        <LocalGroceryStoreSharpIcon sx={{ fontSize: 50, color: "white" }} />
-      ) : (
-        ""
-      )}
+  const [showSidebar, setShowSidebar] = useState(false);
 
-      {expanded &&
-        basket.map((product) => (
-          <div
-            key={product.product.id}
-            style={{
-              border: "2px solid #000000",
-              width: "100%",
-              padding: "10px",
-              borderRadius: "10px",
-              boxSizing: "border-box",
-              marginBottom: 15,
-            }}
-          >
-            <BasketItem product={product} count={product.count} />
-            <BasketButtons>
-              <Button
-                className="basket_button"
-                variant="outlined"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRemoveFromBasket(product.product.id);
-                }}
+  const toggleDrawer = useCallback((state) => {
+    setShowSidebar(state);
+  }, []);
+
+  const getCountOfAllItems = useCallback(
+    () => basket.reduce((prev, item) => prev + item.count, 0),
+    [basket]
+  );
+
+  const getSumOfAllItems = useCallback(
+    () =>
+      basket
+        .reduce((prev, item) => prev + item.product.price * item.count, 0)
+        .toFixed(2),
+    [basket]
+  );
+
+  return (
+    <Wrapper>
+      <Button
+        sx={{ width: 100, marginRight: 3 }}
+        variant="outlined"
+        onClick={() => toggleDrawer(true)}
+      >
+        Basket
+        {basket.length ? (
+          <>
+            <Divider />
+            <div>{getCountOfAllItems()}</div>
+          </>
+        ) : (
+          ""
+        )}
+      </Button>
+      <Drawer
+        open={showSidebar}
+        onClose={() => toggleDrawer(false)}
+        anchor="right"
+      >
+        <CloseButton onClick={() => toggleDrawer(false)}>
+          <CloseIcon />
+        </CloseButton>
+        <ItemsWrapper length={basket.length}>
+          {basket.length === 0 && (
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: 24, fontWeight: "bold" }}>
+                Your basket is empty!
+              </div>
+
+              <SentimentVeryDissatisfiedIcon
+                sx={{ fontSize: 150, opacity: 0.4 }}
+              />
+            </div>
+          )}
+          {basket.length > 0 && (
+            <TotalHeader>
+              {getCountOfAllItems()} good(-s) worth {getSumOfAllItems()}$
+            </TotalHeader>
+          )}
+          {basket.length > 0 &&
+            basket.map((product) => (
+              <div
+                onClick={() => toggleDrawer(false)}
+                onKeyDown={() => toggleDrawer(false)}
+                key={product.product.id}
+                style={{ marginBottom: 5, width: 450 }}
               >
-                Full remove
-              </Button>
-              <Button
-                className="basket_button"
-                variant="outlined"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleIncrementBasket(product.product.id);
-                }}
-              >
-                <AddIcon />
-              </Button>
-              <Button
-                className="basket_button"
-                variant="outlined"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDecrementBasket(product.product.id);
-                }}
-              >
-                <RemoveIcon />
-              </Button>
-            </BasketButtons>
-          </div>
-        ))}
+                <BasketItem product={product} count={product.count} />
+                <BasketButtons>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDecrementBasket(product.product.id);
+                    }}
+                    className="basket_button"
+                  >
+                    <RemoveIcon style={{ fontSize: 16, color: "black" }} />
+                  </IconButton>
+                  <ProductCount>{product.count}</ProductCount>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleIncrementBasket(product.product.id);
+                    }}
+                    className="basket_button"
+                  >
+                    <AddIcon style={{ fontSize: 16, color: "black" }} />
+                  </IconButton>
+                </BasketButtons>
+                <hr />
+              </div>
+            ))}
+        </ItemsWrapper>
+      </Drawer>
     </Wrapper>
   );
 }

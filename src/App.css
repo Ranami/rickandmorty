@@ -7,17 +7,15 @@ body {
 
 div.css-1083xa6-MuiTypography-root {
     font-family: 'Creepster', cursive;
-    font-size: 3.5rem;
+    font-size: 1.5rem;
     -webkit-text-stroke: 2px #c0df40;
     color: #40B5CB;
-    margin-right: 50px;
-
+    padding-right: 20px;
 }
 
 button.css-1q39md6-MuiButtonBase-root-MuiButton-root {
     font-family: 'Creepster', cursive;
-    font-size: 2.5rem;
-
+    font-size: 1.5rem;
 }
 
 button.css-1q39md6-MuiButtonBase-root-MuiButton-root:hover {
@@ -25,7 +23,6 @@ button.css-1q39md6-MuiButtonBase-root-MuiButton-root:hover {
     -webkit-text-stroke: 3px #c0df40;
     color: #40B5CB;
 }
-
 
 ul {
     list-style: none;
@@ -87,7 +84,11 @@ ul {
     font-weight: bold;
 }
 
-.basket_button {
-    width: 150px;
+@media (max-width: 768px) {
 
+
+    .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+        width: 100%;
+        height: 100vh;
+    }
 }
