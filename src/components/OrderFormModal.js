@@ -136,7 +136,7 @@ export const OrderFormModal = () => {
               rules={{
                 validate: (value) => {
                   if (
-                    /^[\w\.]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/.test(value) ||
+                    /^[\w\.-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/.test(value) ||
                     value.length === 0
                   ) {
                     return true;
