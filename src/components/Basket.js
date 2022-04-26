@@ -1,12 +1,17 @@
 import React, { useState, useCallback } from "react";
 import { styled, Button, Drawer, IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { incrementBasket, decrementBasket } from "../store/actions/shopActions";
+import {
+  incrementBasket,
+  decrementBasket,
+  OPEN_MODAL,
+} from "../store/actions/shopActions";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { BasketItem } from "./BasketItem";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import CloseIcon from "@mui/icons-material/Close";
+import { OrderFormModal } from "./OrderFormModal";
 
 const Wrapper = styled("div")`
   display: flex;
@@ -74,6 +79,10 @@ export function Basket() {
   //   },
   //   [dispatch]
   // );
+
+  const handleOpenModel = useCallback(() => {
+    dispatch({ type: OPEN_MODAL });
+  }, [dispatch]);
 
   const handleIncrementBasket = useCallback(
     (id) => {
@@ -182,6 +191,12 @@ export function Basket() {
                 <hr />
               </div>
             ))}
+          {showSidebar && basket.length > 0 && (
+            <Button type="submit" variant="outlined" onClick={handleOpenModel}>
+              Place an order
+            </Button>
+          )}
+          <OrderFormModal />
         </ItemsWrapper>
       </Drawer>
     </Wrapper>

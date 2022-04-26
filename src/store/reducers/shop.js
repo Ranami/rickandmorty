@@ -4,11 +4,14 @@ import {
   REMOVE_FROM_BASKET,
   INCREMENT_BASKET,
   DECREMENT_BASKET,
+  OPEN_MODAL,
+  CLOSE_MODAL,
 } from "../actions/shopActions";
 
 const initState = {
   products: [],
   basket: JSON.parse(localStorage.getItem("basket")) || [],
+  modalOpen: false,
 };
 
 export function shop(state = initState, action) {
@@ -55,6 +58,12 @@ export function shop(state = initState, action) {
       newState.basket = state.basket.filter(
         (item) => item.product.id !== action.payload
       );
+      break;
+    case OPEN_MODAL:
+      newState.modalOpen = true;
+      break;
+    case CLOSE_MODAL:
+      newState.modalOpen = false;
       break;
     default:
       return state;
