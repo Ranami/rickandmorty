@@ -135,10 +135,7 @@ export const OrderFormModal = () => {
               name="email"
               rules={{
                 validate: (value) => {
-                  if (
-                    /[^!@$#%^&*()_+][\w]+@[\w]+\.[\w]+/.test(value) ||
-                    value.length === 0
-                  ) {
+                  if (/^\w+@\w+\.\w+$/.test(value) || value.length === 0) {
                     return true;
                   } else {
                     return "Invalid email";
