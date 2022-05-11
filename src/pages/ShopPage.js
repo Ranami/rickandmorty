@@ -4,6 +4,7 @@ import { Grid, Container } from "@mui/material";
 import { addToBasket, fetchProducts } from "../store/actions/shopActions";
 import { ProductBlock } from "../components/ProductBlock";
 import { Basket } from "../components/Basket";
+import { Catalog } from "../components/Catalog";
 
 export function ShopPage() {
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ export function ShopPage() {
 
   return (
     <Container sx={{ marginTop: 5 }}>
+      <Catalog />
       <Basket />
+
       <Grid container spacing={{ xs: 2, sm: 6, md: 5 }}>
         {products.map((product) => {
           return (

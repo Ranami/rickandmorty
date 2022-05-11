@@ -24,7 +24,6 @@ export function HeroesPage() {
   const query = useSelector((state) => state.heroes.query);
   const statusBy = useSelector((state) => state.heroes.statusBy);
   const pageInfo = useSelector((state) => state.heroes.pageInfo);
-
   useEffect(() => {
     dispatch(fetchHeroes());
   }, [dispatch]);

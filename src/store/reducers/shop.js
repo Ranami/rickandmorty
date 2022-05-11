@@ -1,3 +1,4 @@
+import { SET_CATALOG_ITEMS } from "../actions/catalogActions";
 import {
   SET_PRODUCTS,
   ADD_TO_BASKET,
@@ -12,6 +13,7 @@ const initState = {
   products: [],
   basket: JSON.parse(localStorage.getItem("basket")) || [],
   modalOpen: false,
+  catalogItems: [],
 };
 
 export function shop(state = initState, action) {
@@ -64,6 +66,9 @@ export function shop(state = initState, action) {
       break;
     case CLOSE_MODAL:
       newState.modalOpen = false;
+      break;
+    case SET_CATALOG_ITEMS:
+      newState.catalogItems = [...action.payload];
       break;
     default:
       return state;

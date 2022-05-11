@@ -3,6 +3,7 @@
 
 body {
     background: white;
+    box-sizing: border-box;
 }
 
 div.css-1083xa6-MuiTypography-root {
