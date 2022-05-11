@@ -13,29 +13,34 @@ const Wrapper = styled("div")`
 
 const Columns = styled("div")`
   display: flex;
-  border: ${(props) => (props.expended ? "2px solid #757ce8" : "none")};
-  border-radius: 10px;
+  border: ${(props) => (props.expended ? "2px solid #1565c0" : "none")};
 `;
 
 const FirstLevel = styled("div")`
-  padding-left: 25px;
-  margin-top: 15px;
-  width: 250px;
-  height: 550px;
+  width: 200px;
+  height: 100%;
 `;
 
 const SecondLevel = styled("div")`
-  margin-top: 15px;
-  width: 400px;
-  height: 600px;
+  width: 500px;
+  height: 100%;
 `;
 
 const ItemName = styled("p")`
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   height: 20px;
   margin: 0;
-  margin-bottom: 15px;
+  padding: 5px 5px 10px 5px;
+  border-bottom: 1px solid #1565c0;
+  width: 90%;
+  &:last-child {
+    border: 0;
+  }
+  &:hover {
+    background-color: #1565c0;
+    color: white;
+  }
 `;
 
 export const Catalog = () => {
@@ -55,6 +60,7 @@ export const Catalog = () => {
 
   const handleMouseLeave = useCallback(() => {
     setExpended(false);
+    setChildItems([]);
   }, []);
 
   return (
@@ -62,14 +68,14 @@ export const Catalog = () => {
       <Button
         onMouseEnter={() => handleMouseEnter(childItems)}
         sx={{ width: 100 }}
-        variant="outlined"
+        variant="contained"
       >
         Каталог
       </Button>
       <Columns expended={expended}>
         {expended && (
           <FirstLevel>
-            {catalogItems.map((items) => (
+            {catalogItems.map((items, index) => (
               <ItemName
                 items={items}
                 key={items.id}
@@ -82,7 +88,7 @@ export const Catalog = () => {
         )}
         {childItems.length > 0 && expended && (
           <SecondLevel>
-            {childItems.map((childItem) => (
+            {childItems.map((childItem, index) => (
               <ItemName onMouseEnter={() => handleMouseEnter(childItems)}>
                 {childItem.name}
               </ItemName>
