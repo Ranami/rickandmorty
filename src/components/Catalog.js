@@ -75,7 +75,7 @@ export const Catalog = () => {
       <Columns expended={expended}>
         {expended && (
           <FirstLevel>
-            {catalogItems.map((items, index) => (
+            {catalogItems.map((items) => (
               <ItemName
                 items={items}
                 key={items.id}
@@ -88,8 +88,11 @@ export const Catalog = () => {
         )}
         {childItems.length > 0 && expended && (
           <SecondLevel>
-            {childItems.map((childItem, index) => (
-              <ItemName onMouseEnter={() => handleMouseEnter(childItems)}>
+            {childItems.map((childItem) => (
+              <ItemName
+                onMouseEnter={() => handleMouseEnter(childItems)}
+                key={childItem.id}
+              >
                 {childItem.name}
               </ItemName>
             ))}
